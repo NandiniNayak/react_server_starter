@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 // import logo from "./logo.svg";
 // import "./App.css";
 import Header from "./Header";
+import Form from "./Form";
 // create components/routes
 // const Header = () => <h1> Header </h1>;
 const Footer = () => <h1> Footer </h1>;
@@ -13,12 +14,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/*<a href="/auth/google">SignIn With Google</a>*/}
+        {/*<a href="https:localhost:5000/auth/google">SignIn With Google</a>*/}
         {/*browserRouter allows us to navigate between various routes and decide what component needs to shown*/}
         <BrowserRouter>
           <div>
             {/*render different routes*/}
             <Route path="/" component={Header} />
+            {/*// add a new component called form*/}
+            <Form />
             {/*exact property exactly mathces the url currently visited on the port to the one passed to the Route*/}
             <Route exact path="/" component={Landing} />
             <Route path="/dashboard" component={Dashboard} />
