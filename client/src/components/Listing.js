@@ -19,9 +19,8 @@ class Listing extends Component {
       blogs: []
     };
   }
-
-  componentWillMount() {
-    console.log("this executes before render");
+  componentDidMount() {
+    console.log("Component Did mount");
     axios
       .get("/api/blogs")
       .then(response => {
@@ -29,13 +28,11 @@ class Listing extends Component {
       })
       .catch(err => {
         console.log(err);
-        console.log("soemthing wrong with promise: data not returned in time");
       });
-    console.log("promise not returned yet");
   }
   render() {
     console.log(this.props);
-    console.log("this executes after life cycle");
+    console.log("render");
     return (
       <div className="container">
         <h1> Listing Blogs </h1>
