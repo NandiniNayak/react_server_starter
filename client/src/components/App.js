@@ -10,6 +10,7 @@ import Listing from "./Listing";
 const Footer = () => <h1> Footer </h1>;
 // const Landing = () => <h1> Landing </h1>;
 const Dashboard = () => <h1> Dashboard </h1>;
+const Stories = () => <h1> Stories </h1>;
 
 class App extends Component {
   constructor() {
@@ -50,6 +51,7 @@ class App extends Component {
               </div>
             </div>
             <Route path="/dashboard" component={Dashboard} />
+            <Route exact path="/stories" component={Stories} />
           </div>
         </BrowserRouter>
       </div>
