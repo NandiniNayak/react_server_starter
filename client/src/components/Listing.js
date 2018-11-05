@@ -25,6 +25,12 @@ class Listing extends Component {
     });
   };
 
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false
+    });
+  };
+
   listItem = blogs => {
     return blogs.map(blog => (
       <div key={blog._id}>
@@ -37,7 +43,7 @@ class Listing extends Component {
     ));
   };
 
-  componentDidMount() {
+  fetchBlogs = () => {
     console.log("Component Did mount");
     axios
       .get("/api/blogs")
@@ -47,7 +53,14 @@ class Listing extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  componentDidMount() {
+    this.fetchBlogs();
   }
+  // bad implementation
+  // componentDidUpdate() {
+  //   this.fetchBlogs();
+  // }
   // method captures the info from the modal form
   logChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -67,9 +80,19 @@ class Listing extends Component {
     axios
       .put("/api/blogs", blog)
       .then(response => {
-        console.log(response.data);
-        console.log("saved successfully");
-        this.props.handleNewBlog(response.data);
+        // this is a easy solution but a best solution,
+        // because we are unnecssarily making another get request
+        // this.fetchBlogs();
+        const updatedBlogs = this.props.blogs.map(blog => {
+          if (blog._id === response.data._id) {
+            return response.data;
+          }
+          return blog;
+        });
+        // close the pop up window
+        this.closeModal();
+        // update the state with new set of blogs
+        this.props.handleBlogs(updatedBlogs);
       })
       .catch(err => console.log(err));
   };

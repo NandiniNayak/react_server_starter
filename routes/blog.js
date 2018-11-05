@@ -35,4 +35,19 @@ router.post("/", (req, res) => {
 
   // res.send("post successfully posted to db");
 });
+
+router.put("/", (req, res) => {
+  // find a blog by id
+  Blog.findById({
+    _id: req.body._id
+  })
+    .then(blog => {
+      (blog.title = req.body.title), (blog.description = req.body.description);
+      blog.save().then(blog => {
+        res.json(blog);
+      });
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;
