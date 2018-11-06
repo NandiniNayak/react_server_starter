@@ -50,4 +50,14 @@ router.put("/", (req, res) => {
     .catch(err => console.log(err));
 });
 
+// delete the blog
+router.delete("/", (req, res) => {
+  Blog.remove({
+    _id: req.body._id
+  })
+    .then(() => {
+      res.send("blog deleted successfully");
+    })
+    .catch(err => console.log(err));
+});
 module.exports = router;

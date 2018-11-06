@@ -30,6 +30,16 @@ class Listing extends Component {
       modalIsOpen: false
     });
   };
+  remove = blog => {
+    axios
+      .delete("/api/blogs", { data: blog })
+      .then(() => {
+        // instead of making a get request to fetch blogs again loop through the existing blogs in the state (App.js) and pass the blog that matches the id requested
+        // a callback method in App.js is called to remove the blog from existing blogs in the state
+        this.props.handledeletedBlog(blog._id);
+      })
+      .catch(console.log);
+  };
 
   listItem = blogs => {
     return blogs.map(blog => (
@@ -39,12 +49,12 @@ class Listing extends Component {
         {/*// blog variable keeps track of the title and description that you see
         // on the listing component*/}
         <button onClick={() => this.openModal(blog)}>Edit </button>
+        <button onClick={() => this.remove(blog)}>Delete</button>
       </div>
     ));
   };
 
   fetchBlogs = () => {
-    console.log("Component Did mount");
     axios
       .get("/api/blogs")
       .then(response => {
@@ -58,9 +68,14 @@ class Listing extends Component {
     this.fetchBlogs();
   }
   // bad implementation
-  // componentDidUpdate() {
-  //   this.fetchBlogs();
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.blogs !== this.props.blogs) {
+      // this.fetchBlogs();
+      console.log("componentDidUpdate");
+      console.log(prevProps.blogs);
+      console.log(this.props.blogs);
+    }
+  }
   // method captures the info from the modal form
   logChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -96,7 +111,6 @@ class Listing extends Component {
       })
       .catch(err => console.log(err));
   };
-
   render() {
     console.log(this.props);
     console.log("render");
