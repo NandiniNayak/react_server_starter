@@ -72,17 +72,17 @@ if (process.env.NODE_ENV === "production") {
   //like our main.js, or main.css file
   //this checks the routes hosted in express server
   // any get request comes in for any route on our application and if we do not have route handler set up look up for the client side implementation
-  app.use(express.static('client/build'))
+  app.use(express.static("client/build"));
 
   //this checks for the routes not in express server but defined only on client side like a static route
   //Express will serve up the index.html file
   //if it doesn't recognize the route
   // return index.html if route was not found in server or client/build
-  const path = require('path')
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client','build', 'index.html'))
-  })
-
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 var port = process.env.PORT || 5000;
 // start the server and listen on the port
 app.listen(port, () => {
