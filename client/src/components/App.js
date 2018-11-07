@@ -51,6 +51,36 @@ class App extends Component {
             {/*exact property exactly mathces the url currently visited on the port to the one passed to the Route*/}
             <div className="row">
               <div className="col s6">
+                <Route
+                  path="/"
+                  render={routeProps => (
+                    <Form {...routeProps} handleNewBlog={this.handleNewBlog} />
+                  )}
+                />
+              </div>
+
+              <div className="col s6">
+                <Route
+                  path="/"
+                  render={routeProps => (
+                    <Listing
+                      {...routeProps}
+                      blogs={this.state.blogs}
+                      handleBlogs={this.handleBlogs}
+                      handledeletedBlog={this.handledeletedBlog}
+                    />
+                  )}
+                />
+                {/*<Listing
+                  blogs={this.state.blogs}
+                  handleBlogs={this.handleBlogs}
+                  handledeletedBlog={this.handledeletedBlog}
+                />*/}
+              </div>
+            </div>
+
+            {/*<div className="row">
+              <div className="col s6">
                 <Form handleNewBlog={this.handleNewBlog} />
               </div>
               <div className="col s6">
@@ -60,7 +90,7 @@ class App extends Component {
                   handledeletedBlog={this.handledeletedBlog}
                 />
               </div>
-            </div>
+            </div>*/}
             <Route path="/dashboard" component={Dashboard} />
             <Route exact path="/stories" component={Stories} />
           </div>
