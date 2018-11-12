@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 class Form extends Component {
   constructor(props) {
@@ -88,5 +89,23 @@ class Form extends Component {
     );
   }
 }
+// subscribe to the global state changed
+const mapStateToProps = state => {
+  return {
+    blogs: state.blogs
+  };
+};
+//
+// dispatch various actions to set the global state depending on the action type
+const mapDispatchToProps = dispatch => {
+  return {
+    handleNewBlog: blog => {
+      dispatch({ type: "NEW_BLOG", val: blog });
+    }
+  };
+};
 
-export default Form;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Form);

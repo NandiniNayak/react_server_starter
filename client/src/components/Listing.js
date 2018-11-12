@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Modal from "react-modal";
 
+import { connect } from "react-redux";
 class Listing extends Component {
   constructor() {
     super();
@@ -157,4 +158,22 @@ class Listing extends Component {
   }
 }
 
-export default Listing;
+// subscribe the updated setState
+const mapStateToProps = state => {
+  return {
+    blogs: state.blogs
+  };
+};
+// dispatch an action
+const mapDispatchToProps = dispatch => {
+  return {
+    handleBlogs: blogs => dispatch({ type: "SET_BLOGS", val: blogs }),
+    handledeletedBlog: id => dispatch({ type: "DELETE_BLOG", val: id })
+  };
+};
+
+// connect the subscribe and dispatch function to the store
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Listing);
