@@ -34,10 +34,6 @@ mongoose
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("HOME");
-});
-
 app.use(cookieParser());
 // body parser middleware goes here
 // parse application/x-www-form-urlencoded
@@ -62,6 +58,11 @@ app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
 });
+
+app.get("/", (req, res) => {
+  res.send("HOME");
+});
+
 // use auth Routes : anything that routes to /auth goes to auth.js
 app.use("/auth", auth);
 app.use("/api/blogs", blog);
